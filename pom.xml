@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.fujion</groupId>
+		<artifactId>fujion-parent</artifactId>
+		<version>2.2.1</version>
+	</parent>
+	
+	<groupId>mavenweb</groupId>
+	<artifactId>mavenwebproject</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>mavenweb</name>
+	
+	<properties>
+		<webjar.name>mavenwebproject</webjar.name>
+		<systemjs>
+		{
+			'map': {
+				'mavenwebproject': 'app/app.module'
+			}
+		}
+		</systemjs>
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.samaxes.maven</groupId>
+				<artifactId>minify-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-schema</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>org.fujion.schema.SchemaGenerator</mainClass>
+							<classpathScope>compile</classpathScope>
+							<arguments>
+								<argument>-v=${project.version}</argument>
+								<argument>-t=mavenweb Extension</argument>
+								<argument>-c=mavenweb.Mavenweb</argument>
+								<argument>${webjar.schemadir}fsp-mavenweb.xsd</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.fujion</groupId>
+			<artifactId>fujion-angular-core</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.fujion</groupId>
+			<artifactId>fujion-test</artifactId>
+			<version>2.2.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
