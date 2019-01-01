@@ -25,8 +25,7 @@
 		</systemjs>
 	</properties>
 	
-	<build>
-		
+	<build>		
 		<plugins>
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
